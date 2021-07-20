@@ -12,7 +12,7 @@
 
 ## Installation
 
-```yarn add @hidden-umbrella/eslint-config```
+```yarn add @hidden-umbrella/eslint-config eslint```
 
 ## Usage
 
