@@ -10,30 +10,6 @@ on:
         required: true
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout branch
-        uses: actions/checkout@v2
-      - name: Setup node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - name: Install
-        run: yarn
-      - name: Cache Dependencies
-        uses: actions/cache@v2.1.6
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      - name: Install Dependencies if Cache Miss
-        if: ${{ !steps.cache.outputs.cache-hit }}
-        run: yarn --frozen-lockfile
-      - name: Build
-        run: yarn build
-      - name: Test
-        run: yarn jest
   publish:
     runs-on: ubuntu-latest
     steps:
@@ -55,15 +31,13 @@ jobs:
       - name: Install Dependencies if Cache Miss
         if: ${{ !steps.cache.outputs.cache-hit }}
         run: yarn --frozen-lockfile
-      - name: Build
-        run: yarn build
       - name: "Push to NPM Registry"
         run: |
          TAG=$([[ ${{ github.event_name }} == 'push' ]] && echo 'nightly' || echo 'pr-${{ github.event.inputs.prNumber }}')
 
          yarn standard-version --skip.commit --skip.tag --skip.changelog --prerelease "${TAG}.$(git rev-parse --verify --short HEAD)"
 
-         npm publish --tag ${TAG} --dry-run
+         npm publish --tag ${TAG}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
