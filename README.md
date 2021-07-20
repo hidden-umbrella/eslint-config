@@ -14,6 +14,16 @@
 
 `yarn add @hidden-umbrella/eslint-config`
 
+## Usage
+
+Add this to your .eslintrc
+
+```json
+{
+	"extends": "@hidden-umbrella/eslint-config"
+}
+```
+
 ## License
 
 **Licensed under the [MIT License](https://github.com/hidden-umbrella/template/blob/main/LICENSE)**
