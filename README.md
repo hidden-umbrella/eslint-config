@@ -12,6 +12,8 @@
 
 ## Install
 
+`yarn add @hidden-umbrella/eslint-config`
+
 ## License
 
 **Licensed under the [MIT License](https://github.com/hidden-umbrella/template/blob/main/LICENSE)**
